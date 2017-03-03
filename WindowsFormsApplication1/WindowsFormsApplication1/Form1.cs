@@ -15,7 +15,7 @@ namespace WindowsFormsApplication1
     {
         public Form1()
         {
-            Stack<TreeNode> DisplayNodes = new Stack<TreeNode>();
+            //Stack<TreeNode> DisplayNodes = new Stack<TreeNode>();
             InitializeComponent();
             this.KeyPreview = true;
             this.KeyPress +=
@@ -58,16 +58,18 @@ namespace WindowsFormsApplication1
             filename = filename.ToLower();
             var lines = File.ReadLines(filename);
             int lineNumber = lines.Count();
-            for (int i = 0; i < lineNumber; i++)
+            int level = 0;
+            if (filename.Contains(".daf"))
             {
-                if (filename.Contains(".daf"))//parse DAF file if it's daf file
+                int i = 0;
+                while (i < lines.Count())
                 {
-                    TreeNode root = displayString(lines.ElementAt(i), null);
-                    if (lineNumber % 2 == 0)
-                    {
-                        TreeNode level1 = displayString(lines.ElementAt(++i), root);
-                    }
+                    level = 0;
+                    TreeNode level0 = displayString(lines.ElementAt(i++), null);
+                    TreeNode level1a = displayString(lines.ElementAt(i++), level0);
+                    TreeNode level1b = displayString(lines.ElementAt(i++), level0);
                 }
+            }
                 //call python analysis method if it's txt file and display it in tiers
                 /*WIP
                 if (filename.Contains(".txt"))
@@ -83,8 +85,6 @@ namespace WindowsFormsApplication1
                     string newFileName = filename.strip(".txt");
                     useFile(newFileName);
                 }*/
-
-            }
             //filePathTextBox.Text = filename;
         }
         private TreeNode displayString(string line, TreeNode parent)//parent=null for root
