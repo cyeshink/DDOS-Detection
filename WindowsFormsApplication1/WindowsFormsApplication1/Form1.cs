@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using IronPython.Hosting;
+using Microsoft.Scripting.Hosting;
 
 namespace WindowsFormsApplication1
 {
@@ -70,21 +72,24 @@ namespace WindowsFormsApplication1
                     TreeNode level1b = displayString(lines.ElementAt(i++), level0);
                 }
             }
-                //call python analysis method if it's txt file and display it in tiers
-                /*WIP
-                if (filename.Contains(".txt"))
+            //call python analysis method if it's txt file and display it in tiers
+            if (filename.Contains(".txt"))
+            {
+                var py = Python.CreateEngine();
+                var scope = py.CreateScope();
+                try
                 {
-                    System.Diagnostics.Process process = new System.Diagnostics.Process();
-                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                    startInfo.FileName = "python.exe";
-                    startInfo.Arguments = "-c import ddosanalysis; ddosanalysis.process(filename)";
-                    process.StartInfo = startInfo;
-                    process.Start();
-                    //after program has analyzed log and made .daf file
-                    string newFileName = filename.strip(".txt");
-                    useFile(newFileName);
-                }*/
+                    List<String> argv = new List<String>();
+                    argv.Add(filename);
+                    py.GetSysModule().SetVariable("argv", argv);
+                    py.ExecuteFile(@"rbddos.py", scope);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine("Python exception: " + ex.Message);
+                }
+                //useFile(filename.strip(".txt").append(".daf"));
+            }
             //filePathTextBox.Text = filename;
         }
         private TreeNode displayString(string line, TreeNode parent)//parent=null for root
