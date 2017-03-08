@@ -4,7 +4,9 @@ import sys
 for arg in sys.argv:
     log = arg
 file = open(arg, 'r') 
-daf = open('report.daf', 'w')
+arg = arg.strip(".txt")
+arg += ".daf"
+daf = open(arg, 'w')
 cnt = 0
 prevtime = 0
 userfriendlyoutput = []
@@ -26,4 +28,9 @@ for i in range(len(userfriendlyoutput)):
     print >> daf, "ddos #" + str(i+1)
     print >> daf, "IP address: " + userfriendlyoutput[i]
     print >> daf, detailedoutput[i]
+	#daf.write("ddos#" + str(i+1))
+	#daf.write("IP address: " + userfriendlyoutput[i])
+	#daf.write(detailedoutput[i])
+file.close()
+daf.close()
     

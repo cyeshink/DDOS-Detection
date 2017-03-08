@@ -37,3 +37,9 @@ C:\Users\Nick\Documents\Visual Studio 2015\Projects\DDOS-Detection\WindowsFormsA
 C:\Users\Nick\Documents\Visual Studio 2015\Projects\DDOS-Detection\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
 C:\Users\Nick\Documents\Visual Studio 2015\Projects\DDOS-Detection\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
 C:\Users\Nick\Documents\Visual Studio 2015\Projects\DDOS-Detection\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\rbddos.py
+C:\Users\nicks\Documents\Visual Studio 2015\Projects\DDOS-Detection\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\rbddos.py
+C:\Users\nicks\Documents\Visual Studio 2015\Projects\DDOS-Detection\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\IronPython.xml
+C:\Users\nicks\Documents\Visual Studio 2015\Projects\DDOS-Detection\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\IronPython.Modules.xml
+C:\Users\nicks\Documents\Visual Studio 2015\Projects\DDOS-Detection\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\Microsoft.Dynamic.xml
+C:\Users\nicks\Documents\Visual Studio 2015\Projects\DDOS-Detection\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\Microsoft.Scripting.xml
+C:\Users\nicks\Documents\Visual Studio 2015\Projects\DDOS-Detection\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\Microsoft.Scripting.Metadata.xml

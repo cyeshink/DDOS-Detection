@@ -57,11 +57,11 @@ namespace WindowsFormsApplication1
 
         private void useFile(string filename)
         {
-            filename = filename.ToLower();
+            Console.WriteLine("useFile called with: " + filename);
             var lines = File.ReadLines(filename);
             int lineNumber = lines.Count();
             int level = 0;
-            if (filename.Contains(".daf"))
+            if (filename.ToLower().Contains(".daf"))
             {
                 int i = 0;
                 while (i < lines.Count())
@@ -73,22 +73,24 @@ namespace WindowsFormsApplication1
                 }
             }
             //call python analysis method if it's txt file and display it in tiers
-            if (filename.Contains(".txt"))
+            if (filename.ToLower().Contains(".txt"))
             {
                 var py = Python.CreateEngine();
                 var scope = py.CreateScope();
-                try
+
+                List<String> argv = new List<String>();
+                argv.Add(filename);
+                py.GetSysModule().SetVariable("argv", argv);
+                py.ExecuteFile(@"rbddos.py", scope);
+                
+                string newFileName = filename.Replace(".txt", ".daf");
+                int wait = 0;
+                while (!File.Exists(newFileName))
                 {
-                    List<String> argv = new List<String>();
-                    argv.Add(filename);
-                    py.GetSysModule().SetVariable("argv", argv);
-                    py.ExecuteFile(@"rbddos.py", scope);
+                    wait++;
+                    Console.WriteLine("Wait! " + wait);
                 }
-                catch(Exception ex)
-                {
-                    Console.WriteLine("Python exception: " + ex.Message);
-                }
-                //useFile(filename.strip(".txt").append(".daf"));
+                useFile(newFileName);
             }
             //filePathTextBox.Text = filename;
         }
