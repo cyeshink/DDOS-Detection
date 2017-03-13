@@ -81,8 +81,14 @@ namespace WindowsFormsApplication1
                 List<String> argv = new List<String>();
                 argv.Add(filename);
                 py.GetSysModule().SetVariable("argv", argv);
-                py.ExecuteFile(@"rbddos.py", scope);
-                
+                try
+                {
+                    py.ExecuteFile(@"rbddos.py", scope);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine("Python exception: " + ex.Message);
+                }
                 string newFileName = filename.Replace(".txt", ".daf");
                 int wait = 0;
                 while (!File.Exists(newFileName))
