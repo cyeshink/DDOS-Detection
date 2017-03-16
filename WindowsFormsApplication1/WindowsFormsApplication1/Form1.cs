@@ -20,17 +20,12 @@ namespace WindowsFormsApplication1
         int maxEntries = 0;
         public Form1()
         {
-            //Stack<TreeNode> DisplayNodes = new Stack<TreeNode>();
             InitializeComponent();
             this.KeyPreview = true;
             this.KeyPress +=
                 new KeyPressEventHandler(Form1_KeyPress);
             messageGeneratedFontSize.Value = 10;
             maxEntries = 0;
-            //TreeNode DDOS1_L1 = messageGeneratedTreeView.Nodes.Add("DDOS1 : <Example IP1>");
-            //TreeNode DDOS1_L2 = DDOS1_L1.Nodes.Add("DDOS1 : More Info displayed here...");
-            //TreeNode DDOS2_L1 = messageGeneratedTreeView.Nodes.Add("DDOS2 : <Example IP2>");
-            //TreeNode DDOS2_L2 = DDOS2_L1.Nodes.Add("DDOS2 : More Info displayed here...");
         }
 
         void Form1_KeyPress(object sender, KeyPressEventArgs e)
@@ -55,8 +50,7 @@ namespace WindowsFormsApplication1
 
             if(openAnalysisFileDialog.ShowDialog() == DialogResult.OK)
             {
-                filepath = openAnalysisFileDialog.FileName /*+ " "*/;
-                //messageGeneratedTreeView.Nodes.Clear(); 
+                filepath = openAnalysisFileDialog.FileName;
                 useFile(openAnalysisFileDialog.FileName + " ");
             }
         }
@@ -64,7 +58,7 @@ namespace WindowsFormsApplication1
         private void useFile(string filename)
         {
             messageGeneratedTreeView.Nodes.Clear();
-            filePathTextBox.Text = filename/*.Substring(0, filename.Length-1)*/;
+            filePathTextBox.Text = filename;
             Console.WriteLine("useFile called with: " + filename);
             var lines = File.ReadLines(filename);
             int lineNumber = lines.Count();
@@ -127,10 +121,10 @@ namespace WindowsFormsApplication1
                 }
                 useFile(newFileName);
             }
-            //filePathTextBox.Text = filename;
         }
         private TreeNode displayString(string line, TreeNode parent)//parent=null for root
         {
+            line = line.Substring(1);
             TreeNode newNode;
             if (parent == null)
             {
