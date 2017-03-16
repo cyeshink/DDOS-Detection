@@ -36,8 +36,12 @@
             this.messageGeneratedTreeView = new System.Windows.Forms.TreeView();
             this.messageGeneratedFontSize = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.MaxEntriesUpDown = new System.Windows.Forms.NumericUpDown();
+            this.HelpButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messageGeneratedFontSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxEntriesUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -46,6 +50,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.36401F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.57436F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.06163F));
+            this.tableLayoutPanel1.Controls.Add(this.HelpButton, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.filePathTextBox, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.fileSelectButton, 2, 1);
@@ -53,6 +58,8 @@
             this.tableLayoutPanel1.Controls.Add(this.messageGeneratedTreeView, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.messageGeneratedFontSize, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.label3, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.MaxEntriesUpDown, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -124,9 +131,19 @@
             // messageGeneratedFontSize
             // 
             this.messageGeneratedFontSize.Location = new System.Drawing.Point(527, 213);
+            this.messageGeneratedFontSize.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.messageGeneratedFontSize.Name = "messageGeneratedFontSize";
             this.messageGeneratedFontSize.Size = new System.Drawing.Size(120, 22);
             this.messageGeneratedFontSize.TabIndex = 7;
+            this.messageGeneratedFontSize.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.messageGeneratedFontSize.ValueChanged += new System.EventHandler(this.messageGeneratedFontSize_ValueChanged);
             // 
             // label3
@@ -139,17 +156,63 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Font Size";
             // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 193);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(114, 17);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Maximum Entries";
+            // 
+            // MaxEntriesUpDown
+            // 
+            this.MaxEntriesUpDown.Location = new System.Drawing.Point(3, 213);
+            this.MaxEntriesUpDown.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.MaxEntriesUpDown.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.MaxEntriesUpDown.Name = "MaxEntriesUpDown";
+            this.MaxEntriesUpDown.Size = new System.Drawing.Size(120, 22);
+            this.MaxEntriesUpDown.TabIndex = 11;
+            this.MaxEntriesUpDown.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.MaxEntriesUpDown.ValueChanged += new System.EventHandler(this.MaxEntriesUpDown_ValueChanged);
+            // 
+            // HelpButton
+            // 
+            this.HelpButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.HelpButton.Location = new System.Drawing.Point(622, 3);
+            this.HelpButton.Name = "HelpButton";
+            this.HelpButton.Size = new System.Drawing.Size(75, 23);
+            this.HelpButton.TabIndex = 1;
+            this.HelpButton.Text = "Help";
+            this.HelpButton.UseVisualStyleBackColor = true;
+            this.HelpButton.Click += new System.EventHandler(this.HelpButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(700, 517);
             this.Controls.Add(this.tableLayoutPanel1);
+            //this.HelpButton = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messageGeneratedFontSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxEntriesUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -164,6 +227,9 @@
         private System.Windows.Forms.TreeView messageGeneratedTreeView;
         private System.Windows.Forms.NumericUpDown messageGeneratedFontSize;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown MaxEntriesUpDown;
+        private System.Windows.Forms.Button HelpButton;
     }
 }
 

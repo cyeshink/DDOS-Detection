@@ -15,6 +15,8 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        string helpfilename = "../../../../README.md";
+        int maxEntries = 0;
         public Form1()
         {
             //Stack<TreeNode> DisplayNodes = new Stack<TreeNode>();
@@ -23,6 +25,7 @@ namespace WindowsFormsApplication1
             this.KeyPress +=
                 new KeyPressEventHandler(Form1_KeyPress);
             messageGeneratedFontSize.Value = 10;
+            maxEntries = 0;
             //TreeNode DDOS1_L1 = messageGeneratedTreeView.Nodes.Add("DDOS1 : <Example IP1>");
             //TreeNode DDOS1_L2 = DDOS1_L1.Nodes.Add("DDOS1 : More Info displayed here...");
             //TreeNode DDOS2_L1 = messageGeneratedTreeView.Nodes.Add("DDOS2 : <Example IP2>");
@@ -61,19 +64,39 @@ namespace WindowsFormsApplication1
             var lines = File.ReadLines(filename);
             int lineNumber = lines.Count();
             int level = 0;
+            int count = 0;
+            int num = 0;
             if (filename.ToLower().Contains(".daf"))
             {
                 int i = 0;
+                TreeNode[] TreeNodesByLevel = new TreeNode[10];//allow up to 10 levels
                 while (i < lines.Count())
                 {
-                    level = 0;
-                    TreeNode level0 = displayString(lines.ElementAt(i++), null);
-                    TreeNode level1a = displayString(lines.ElementAt(i++), level0);
-                    TreeNode level1b = displayString(lines.ElementAt(i++), level0);
+                    string line = lines.ElementAt(i);
+                    TreeNode parent = null;//assume root, unless if statement below is true
+                    level = findlevel(line);
+                    if(level == 0)
+                    {
+                        count = 0;
+                        num = findlevel(lines.ElementAt(++i));
+                        if(num > MaxEntriesUpDown.Value)
+                        {
+                            i += num;
+                        }
+                    }
+                    if(level > 0 && level < TreeNodesByLevel.Length - 1)//child
+                    {
+                        parent = TreeNodesByLevel[level - 1];
+                    }
+                    if (level < TreeNodesByLevel.Length)
+                    {
+                        TreeNodesByLevel[level] = displayString(line, parent);
+                    }
+                    i++;
                 }
             }
-            //call python analysis method if it's txt file and display it in tiers
-            if (filename.ToLower().Contains(".txt"))
+            //call python analysis method if it's log file and display it in tiers
+            if (filename.ToLower().Contains(".log"))
             {
                 var py = Python.CreateEngine();
                 var scope = py.CreateScope();
@@ -83,13 +106,14 @@ namespace WindowsFormsApplication1
                 py.GetSysModule().SetVariable("argv", argv);
                 try
                 {
-                    py.ExecuteFile(@"rbddos.py", scope);
+                    py.ExecuteFile(@"ddosanalysis.py", scope);
                 }
                 catch(Exception ex)
                 {
                     Console.WriteLine("Python exception: " + ex.Message);
                 }
-                string newFileName = filename.Replace(".txt", ".daf");
+                Console.WriteLine("Finished py.executefile");
+                string newFileName = filename.Replace(".log", ".daf");
                 int wait = 0;
                 while (!File.Exists(newFileName))
                 {
@@ -122,6 +146,22 @@ namespace WindowsFormsApplication1
         private void messageGeneratedFontSize_ValueChanged(object sender, EventArgs e)
         {
             messageGeneratedTreeView.Font = new Font(messageGeneratedTreeView.Font.FontFamily, (Single)messageGeneratedFontSize.Value);
+        }
+
+        private int findlevel(string line)
+        {
+            return Int32.Parse(line.Substring(0, 2));
+        }
+
+        private void MaxEntriesUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            maxEntries = (int)MaxEntriesUpDown.Value;
+        }
+
+        private void HelpButton_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(System.IO.Directory.GetCurrentDirectory());
+            System.Diagnostics.Process.Start("notepad.exe", helpfilename);
         }
     }
 

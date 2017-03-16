@@ -1,8 +1,9 @@
-#using linux log file
+﻿#using linux log file
 import sys
 
-
-filename = sys.argv[1]
+helpfulfile = open("helpfulfile.txt", 'w')
+for arg in sys.argv:
+	filename = arg
 inputfile = open(filename, 'r')
 outputfilename = filename[0:filename.find(".log")]
 outputfilename += ".daf"
@@ -22,14 +23,18 @@ for line in inputlines:
 	#	print(str(linenum) + "\n" + str(line) + "\n" + str(inputlines[linenum+1]) + "\n")
 	date = linelist[0:2]
 	time = linelist[2]
+	srcpt = ""
+	dstpt = ""
+	proto = ""
+	for ll in linelist:
+		if ll.find("SPT") != -1:
+			srcpt = ll
+		elif ll.find("DPT") != -1:
+			dstpt = ll
+		elif ll.find("PROTO") != -1:
+			proto = ll
 	srcip = linelist[7]
 	dstip = linelist[8]
-	if len(linelist) > 15:
-		proto = linelist[14]
-	if len(linelist) > 16:
-		srcpt = linelist[15]
-	if len(linelist) > 17:	
-		dstpt = linelist[16]
 
 	if(srcip not in IPs):
 		IPs[srcip] = [[srcpt, date, time, dstip, proto, dstpt]]
@@ -74,9 +79,9 @@ for ip in IPs:
 	#print(times[-1])
 	avgfrequency = len(entries)/(times[0] - times[-1])#attempts per day
 	if avgfrequency > 1000:
-		outputfile.write("<level1>" + str(ip) + "\n")
+		outputfile.write("0 " + str(ip) + "\n" + str(len(entries)) + "\n")
 		for entry in entries:
-			outputfile.write("<level2>" + "\t" + str(entry) + "\n")
+			outputfile.write("1 " + "\t" + str(entry) + "\n")
 
 
 
@@ -88,3 +93,4 @@ for ip in IPs:
 
 inputfile.close()
 outputfile.close()
+helpfulfile.close()
