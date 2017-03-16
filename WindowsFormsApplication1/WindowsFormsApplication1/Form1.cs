@@ -16,6 +16,7 @@ namespace WindowsFormsApplication1
     public partial class Form1 : Form
     {
         string helpfilename = "../../../../README.md";
+        string filepath = "";
         int maxEntries = 0;
         public Form1()
         {
@@ -54,12 +55,16 @@ namespace WindowsFormsApplication1
 
             if(openAnalysisFileDialog.ShowDialog() == DialogResult.OK)
             {
-                useFile(openAnalysisFileDialog.FileName);
+                filepath = openAnalysisFileDialog.FileName /*+ " "*/;
+                //messageGeneratedTreeView.Nodes.Clear(); 
+                useFile(openAnalysisFileDialog.FileName + " ");
             }
         }
 
         private void useFile(string filename)
         {
+            messageGeneratedTreeView.Nodes.Clear();
+            filePathTextBox.Text = filename/*.Substring(0, filename.Length-1)*/;
             Console.WriteLine("useFile called with: " + filename);
             var lines = File.ReadLines(filename);
             int lineNumber = lines.Count();
