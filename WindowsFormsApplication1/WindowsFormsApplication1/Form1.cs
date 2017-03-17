@@ -77,10 +77,18 @@ namespace WindowsFormsApplication1
                     if(level == 0)
                     {
                         count = 0;
-                        num = findlevel(lines.ElementAt(++i));
+                        num = Int32.Parse(lines.ElementAt(++i));
+                        int displayedentries = num;
+                        if (num > MaxEntriesUpDown.Value){
+                            displayedentries = 50;
+                        }
+                        line += ";    Total Entries: " + num + ";    Displayed Entries: " + displayedentries;
+                        Console.WriteLine(MaxEntriesUpDown.Value);
+                        Console.WriteLine("num = " + num);
                         if(num > MaxEntriesUpDown.Value)
                         {
-                            i += num;
+                            Console.WriteLine("Greater than MaxEntriesUpDown.Value.");
+                            i += num - 50;
                         }
                     }
                     if(level > 0 && level < TreeNodesByLevel.Length - 1)//child
